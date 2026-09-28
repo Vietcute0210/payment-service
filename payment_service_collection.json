@@ -1,0 +1,89 @@
+{
+  "info": {
+    "_postman_id": "b8f4c123-5e9a-4122-87a1-payment00001",
+    "name": "Payment Service API",
+    "description": "Collection for testing Payment Microservice (Port 8081)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Process Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountId\": 1,\n  \"amount\": 500000.0,\n  \"currency\": \"VND\",\n  \"description\": \"Thanh toán hoá đơn tiền điện tháng 9\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/payments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "payments"
+          ]
+        },
+        "description": "Nhận yêu cầu thanh toán, lưu Payment vào DB (status SUCCESS), và gửi message đến ActiveMQ queue (payment.completed)"
+      },
+      "response": []
+    },
+    {
+      "name": "2. Get Payment by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/payments/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "payments",
+            "1"
+          ]
+        },
+        "description": "Xem chi tiết một giao dịch thanh toán theo paymentId"
+      },
+      "response": []
+    },
+    {
+      "name": "3. Get Payments by Account ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/payments/account/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "payments",
+            "account",
+            "1"
+          ]
+        },
+        "description": "Lấy danh sách toàn bộ các giao dịch thanh toán của một tài khoản (sắp xếp mới nhất trước)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8081",
+      "type": "string"
+    }
+  ]
+}
